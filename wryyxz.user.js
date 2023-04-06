@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         微软语音下载音频
 // @namespace    http://tampermonkey.net/
-// @version      0.2
+// @version      0.3
 // @description  try to take over the world!
 // @author       家豪
 // @match        https://speech.microsoft.com/audiocontentcreation
@@ -40,10 +40,12 @@
 
   async function 下载音频(ssml_str){
     const body = {
-      ttsAudioFormat: "audio-24khz-160kbitrate-mono-mp3",
+      ttsAudioFormat: "audio-48khz-192kbitrate-mono-mp3",
       ssml: ssml_str,
     };
+
     const url = "https://southeastasia.api.speech.microsoft.com/accfreetrial/texttospeech/acc/v3.0-beta1/vcg/speak";
+
     await fetch(url, {
       "headers": {
         "accept": "*/*",
@@ -58,7 +60,10 @@
       "method": "POST",
       "mode": "cors",
       "credentials": "omit"
-    }).then(res => res.blob()).then(blob => {
+    }).then(res => {
+      if (res.status !== 200) return Promise.reject({ status: res.status });
+      return res.blob();
+    }).then(blob => {
       const bUrl = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = bUrl;
