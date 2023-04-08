@@ -1,10 +1,10 @@
 // ==UserScript==
 // @name         nyaa.si tag color
 // @namespace    http://tampermonkey.net/
-// @version      0.1
+// @version      0.2
 // @description  try to take over the world!
 // @author       家豪
-// @match        https://nyaa.si/
+// @match        https://nyaa.si/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=nyaa.si
 // @grant        GM_addStyle
 // ==/UserScript==
