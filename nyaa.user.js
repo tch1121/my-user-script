@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         nyaa.si tag color
 // @namespace    http://tampermonkey.net/
-// @version      0.2
+// @version      0.3
 // @description  try to take over the world!
 // @author       家豪
 // @match        https://nyaa.si/*
@@ -38,25 +38,21 @@
       const span = document.createElement("span");
       span.textContent = q;
       span.className = `color _${q}`;
-      a.appendChild(span);
+      a.parentNode.appendChild(span);
     }
   });
 
   function checkQuality(str) {
-    const quality = {
-      "1080": (str, q) => {
-        return str.includes(`${q}p`) || str.includes(`x${q}`);
-      },
-      "720": (str, q) => {
-        return str.includes(`${q}p`) || str.includes(`x${q}`);
-      },
-      "480": (str, q) => {
-        return str.includes(`${q}p`) || str.includes(`x${q}`);
-      },
+    const quality = ["1080", "720", "480"];
+
+    const has = (str, q) => {
+      return str.includes(`${q}p`) || str.includes(`x${q}`);
     };
 
-    for (const q in quality) {
-      if ( quality[q](str.toLowerCase(), q) ) {
+    for (let i = 0; i < quality.length; i++) {
+      const q = quality[i];
+
+      if ( has(str.toLowerCase(), q) ) {
         return q + "p";
       }
     }
