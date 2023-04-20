@@ -45,6 +45,8 @@
   function checkQuality(str) {
     const quality = ["1080", "720", "480"];
 
+    str = str.toLowerCase();
+
     const has = (str, q) => {
       return str.includes(`${q}p`) || str.includes(`x${q}`);
     };
@@ -52,7 +54,7 @@
     for (let i = 0; i < quality.length; i++) {
       const q = quality[i];
 
-      if ( has(str.toLowerCase(), q) ) {
+      if ( has(str, q) ) {
         return q + "p";
       }
     }
