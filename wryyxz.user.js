@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         微软语音下载音频
 // @namespace    http://tampermonkey.net/
-// @version      0.3
+// @version      0.4
 // @description  try to take over the world!
 // @author       家豪
 // @match        https://speech.microsoft.com/audiocontentcreation
@@ -11,7 +11,7 @@
 (function() {
   "use strict";
   function 初始化() {
-    const 按钮 = document.querySelector(".ms-OverflowSet-item.item-153");
+    const 按钮 = document.querySelector(".ms-OverflowSet-item");
     if (!按钮) return setTimeout(初始化, 1000);
     执行();
   }
@@ -19,7 +19,7 @@
   function 执行(){
     const 按钮 = document.createElement("button");
     按钮.textContent = "下载音频";
-    const 节点 = document.querySelector(".ms-OverflowSet-item.item-153");
+    const 节点 = document.querySelector(".ms-OverflowSet-item");
     节点.parentNode.appendChild(按钮);
 
     按钮.addEventListener("click", 处理按钮事件, false);
@@ -27,7 +27,7 @@
 
   function 处理按钮事件(e){
     e.preventDefault();
-    const SSML按钮 = document.querySelector("#Toggle48");
+    const SSML按钮 = document.querySelector("#Toggle52");
     let textarea = document.querySelector("textarea");
     if (!textarea) {
       SSML按钮.click();
